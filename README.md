@@ -1,0 +1,1 @@
+Позитивные и негативные тесты https://petstore.swagger.io с помощью Playwright 
