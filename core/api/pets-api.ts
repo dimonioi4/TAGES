@@ -21,4 +21,25 @@ export class PetApiClient {
         const addedPet: Pet = await response.json();
         return addedPet;
     }
+    async findPetsById(id: number): Promise<Pet> {
+        const url = `${this.baseUrl}/pet/${id}`;
+        const response: APIResponse = await this.context.get(url);
+        const pet: Pet = await response.json();
+        return pet;
+    }
+    async findPetsByStatus(status: string): Promise<Pet> {
+        const url = `${this.baseUrl}/pet/findByStatus`;
+        const response: APIResponse = await this.context.get(url, {
+            params: {
+                status: status
+            }
+        });
+        const pets: Pet = await response.json();
+        return pets;
+    }
+
+    async deletePet(id: number) {
+        const url = `${this.baseUrl}/pet/${id}`;
+        const response: APIResponse = await this.context.delete(url);
+    }
 }
