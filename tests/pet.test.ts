@@ -1,5 +1,5 @@
 import {PetApiClient} from "../core/api/pets-api";
-import {test, expect, request} from '@playwright/test';
+import {test, expect} from '@playwright/test';
 import {Pet} from "../utils/types/pets";
 import {validateSchema} from "../utils/schema/validator";
 import {petSchema} from "../utils/schema/pets-schema";
@@ -67,9 +67,27 @@ test.describe('GET', () => {
     test('Get pet by Id positive', async ({ context }) => {
         const apiContext = context.request;
         const apiClient = new PetApiClient(baseUrl, apiContext);
+        const newPet: Pet = {
+            "category": {
+                "name": "doggy"
+            },
+            "name": "doggie",
+            "photoUrls": [
+                "string"
+            ],
+            "tags": [
+                {
+                    "id": 0,
+                    "name": "string"
+                }
+            ],
+            "status": "available"
+        };
 
+        // Добавление нового питомца с использованием клиента
+        const addedPet: Pet = await apiClient.addPet(newPet);
         // Получение питомца по id
-        const pet = await apiClient.findPetsById(1);
+        const pet = await apiClient.findPetsById(addedPet.id);
 
         const requestedPet = {
             id: 1,

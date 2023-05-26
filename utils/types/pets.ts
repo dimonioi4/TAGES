@@ -1,6 +1,7 @@
 import {PetApiClient} from "../../core/api/pets-api";
 
 export interface Pet {
+    id: number,
     category: {
         name: string;
     };

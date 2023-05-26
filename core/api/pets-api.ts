@@ -41,5 +41,7 @@ export class PetApiClient {
     async deletePet(id: number) {
         const url = `${this.baseUrl}/pet/${id}`;
         const response: APIResponse = await this.context.delete(url);
+        const pet: Pet = await response.json();
+        return pet;
     }
 }
